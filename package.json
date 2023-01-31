@@ -18,7 +18,10 @@
     "react-native-perspective-image-cropper": "https://github.com/rosenexpend/react-native-perspective-image-cropper",
     "react-native-rectangle-scanner": "^1.0.10",
     "react-native-svg": "^13.7.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -27,6 +30,7 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@react-native-community/eslint-config": "^3.0.0",
+    "@redux-devtools/extension": "^3.2.5",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/lodash": "^4.14.191",
