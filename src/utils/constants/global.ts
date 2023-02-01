@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 export const DIMENSSIONS = {
   SCREEN: Dimensions.get('screen'),
@@ -17,5 +17,8 @@ export const DIMENSSIONS = {
   },
   get ASPECT_RATIO() {
     return this.HEIGHT / this.WIDTH;
+  },
+  get IS_PHONE() {
+    return this.ASPECT_RATIO > 1.6;
   },
 };

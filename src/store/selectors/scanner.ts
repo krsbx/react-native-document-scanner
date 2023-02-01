@@ -14,6 +14,9 @@ export const getFlashStatus = (state: AppState) =>
 export const getCameraStatus = (state: AppState) =>
   getScanner(state).isLoadingCamera;
 
+export const getScannerViewStatus = (state: AppState) =>
+  getScanner(state).isOnScannerView;
+
 export const getMultiTaskingStatus = (state: AppState) =>
   getScanner(state).isMultiTasking;
 
@@ -27,3 +30,9 @@ export const getStoredImages = (state: AppState) => getScanner(state).images;
 
 export const getStoredDetectedRectangles = (state: AppState) =>
   getScanner(state).detectedRectangles;
+
+export const getCameraDisabledStatus = (state: AppState) => {
+  const { isTakingPicture, isProcessingImage } = getScanner(state);
+
+  return isTakingPicture || isProcessingImage;
+};

@@ -4,7 +4,7 @@ import {
 } from 'react-native-rectangle-scanner';
 
 export type ScannerReducer = {
-  image: DetectedRectangle | undefined;
+  image: PictureCallbackProps | undefined;
   isFlashEnabled: boolean;
   didLoadInitialLayout: boolean;
   detectedRectangle: DetectedRectangle | undefined;
@@ -12,6 +12,7 @@ export type ScannerReducer = {
   isLoadingCamera: boolean;
   isProcessingImage: boolean;
   isTakingPicture: boolean;
+  isOnScannerView: boolean;
 
   images: PictureCallbackProps[];
   detectedRectangles: DetectedRectangle[];

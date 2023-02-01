@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
 const useCameraMessage = ({
   isMultiTasking,
@@ -20,6 +20,8 @@ const useCameraMessage = ({
 
     if (!isHasCameraAccess)
       return 'Permission to use camera has not been granted.';
+
+    return '';
   }, [isMultiTasking, initialized, isHasCamera, isHasCameraAccess]);
 
   return message;

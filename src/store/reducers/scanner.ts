@@ -24,6 +24,7 @@ const initialState: ScannerReducer = {
   isMultiTasking: false,
   isProcessingImage: false,
   isTakingPicture: false,
+  isOnScannerView: false,
   selectedImage: -1, // -1 = No selected
 };
 
