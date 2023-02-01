@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import { Animated, View } from 'react-native';
 import Scanner, {
   RectangleOverlay,
   ScannerComponentProps,
@@ -18,6 +18,7 @@ import {
   getScanner,
 } from '../../store/selectors/scanner';
 import { getDevice } from '../../store/selectors/device';
+import { overlayStyle } from '../../utils/styles';
 
 const CameraScannerView: React.FC<Props> = ({
   cameraRef,
@@ -99,7 +100,7 @@ const CameraScannerView: React.FC<Props> = ({
         onTorchChanged={({ enabled }) =>
           setScanner({ isFlashEnabled: enabled })
         }
-        style={styles.scanner}
+        style={overlayStyle.scanner}
         onDeviceSetup={onDeviceSetup}
         onPictureProcessed={onPictureProcessed}
         onPictureTaken={onPictureTaken}
@@ -122,7 +123,7 @@ const CameraScannerView: React.FC<Props> = ({
       ) : null}
       <Animated.View
         style={[
-          styles.overlay,
+          overlayStyle.container,
           {
             backgroundColor: 'white',
             opacity: flashOpacity,
@@ -162,19 +163,5 @@ type Props = ConnectedProps<typeof connector> &
     flashOpacity: Animated.Value;
     cameraIsOn?: boolean;
   };
-
-const styles = StyleSheet.create({
-  overlay: {
-    bottom: 0,
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
-  scanner: {
-    flex: 1,
-  },
-});
 
 export default connector(CameraScannerView);

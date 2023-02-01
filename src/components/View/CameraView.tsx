@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  StyleSheet,
 } from 'react-native';
 import { connect, ConnectedProps } from 'react-redux';
 import { ScannerView } from 'react-native-rectangle-scanner';
@@ -16,6 +15,8 @@ import { getScanner } from '../../store/selectors/scanner';
 import CameraScannerView from './CameraScannerView';
 import useCameraMessage from '../../hooks/useCameraMessage';
 import { getDevice } from '../../store/selectors/device';
+import CropView from './CropView';
+import { controlStyle, globalStyle, overlayStyle } from '../../utils/styles';
 
 const CameraView: React.FC<Props> = ({
   capture,
@@ -32,9 +33,7 @@ const CameraView: React.FC<Props> = ({
     isMultiTasking: scanner.isMultiTasking,
   });
 
-  if (scanner.image) {
-    return <></>;
-  }
+  if (scanner.image) return <CropView />;
 
   if (scanner.isOnScannerView) {
     return (
@@ -48,36 +47,42 @@ const CameraView: React.FC<Props> = ({
   }
 
   return (
-    <View style={styles.cameraNotAvailableContainer}>
+    <View style={globalStyle.notAvailableContainer}>
       {scanner.isLoadingCamera ? (
-        <View style={styles.overlay}>
-          <View style={styles.loadingContainer}>
+        <View style={overlayStyle.container}>
+          <View style={overlayStyle.loadingContainer}>
             <ActivityIndicator color="white" />
-            <Text style={styles.loadingCameraMessage}>Loading Camera</Text>
+            <Text style={overlayStyle.loadingCameraMessage}>
+              Loading Camera
+            </Text>
           </View>
         </View>
       ) : (
-        <Text style={styles.cameraNotAvailableText}>{cameraErorrMessage}</Text>
+        <Text style={globalStyle.notAvailableText}>{cameraErorrMessage}</Text>
       )}
-      <View style={styles.buttonBottomContainer}>
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-            <Icon name="ios-close-circle" size={40} style={styles.buttonIcon} />
-            <Text style={styles.buttonText}>Cancel</Text>
+      <View style={globalStyle.buttonBottomContainer}>
+        <View style={controlStyle.buttonGroup}>
+          <TouchableOpacity style={controlStyle.button} activeOpacity={0.8}>
+            <Icon
+              name="ios-close-circle"
+              size={40}
+              style={controlStyle.buttonIcon}
+            />
+            <Text style={controlStyle.buttonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonGroup}>
+        <View style={controlStyle.buttonGroup}>
           <TouchableOpacity
-            style={[styles.button, { marginTop: 8 }]}
+            style={[controlStyle.button, { marginTop: 8 }]}
             activeOpacity={0.8}
           >
             <Icon
               name="arrow-forward-circle"
               size={40}
               color="white"
-              style={styles.buttonIcon}
+              style={controlStyle.buttonIcon}
             />
-            <Text style={styles.buttonText}>Skip</Text>
+            <Text style={controlStyle.buttonText}>Skip</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -98,67 +103,5 @@ type Props = ConnectedProps<typeof connector> & {
   flashOpacity: Animated.Value;
   cameraIsOn?: boolean;
 };
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    height: 70,
-    justifyContent: 'center',
-    width: 65,
-  },
-  buttonBottomContainer: {
-    alignItems: 'flex-end',
-    bottom: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    left: 25,
-    position: 'absolute',
-    right: 25,
-  },
-  buttonGroup: {
-    backgroundColor: '#00000080',
-    borderRadius: 17,
-  },
-  buttonIcon: {
-    color: 'white',
-    fontSize: 22,
-    marginBottom: 3,
-    textAlign: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 13,
-  },
-  cameraNotAvailableContainer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 15,
-  },
-  cameraNotAvailableText: {
-    color: 'white',
-    fontSize: 25,
-    textAlign: 'center',
-  },
-  loadingCameraMessage: {
-    color: 'white',
-    fontSize: 18,
-    marginTop: 10,
-    textAlign: 'center',
-  },
-  loadingContainer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  overlay: {
-    bottom: 0,
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
-});
 
 export default connector(CameraView);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { AppState } from '../../store';
@@ -7,6 +7,7 @@ import {
   getCameraStatus,
   getImageProcessStatus,
 } from '../../store/selectors/scanner';
+import { overlayStyle } from '../../utils/styles';
 import LoadingCamera from '../Message/Loading/LoadingCamera';
 import ProcessingImage from '../Message/Loading/ProcessingImage';
 import CameraControl from './Control/CameraControl';
@@ -23,7 +24,7 @@ const CameraOverlay: React.FC<Props> = ({
       ) : (
         <LoadingCamera />
       )}
-      <SafeAreaView style={[styles.overlay]}>
+      <SafeAreaView style={overlayStyle.container}>
         <CameraControl capture={capture} />
       </SafeAreaView>
     </React.Fragment>
@@ -40,16 +41,5 @@ const connector = connect(mapStateToProps);
 type Props = ConnectedProps<typeof connector> & {
   capture?: () => void;
 };
-
-const styles = StyleSheet.create({
-  overlay: {
-    bottom: 0,
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
-});
 
 export default connector(CameraOverlay);

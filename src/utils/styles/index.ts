@@ -1,3 +1,5 @@
-import Overlay from './overlay';
+import globalStyle from './global';
+import controlStyle from './control';
+import overlayStyle from './overlay';
 
-export {Overlay};
+export { controlStyle, globalStyle, overlayStyle };
