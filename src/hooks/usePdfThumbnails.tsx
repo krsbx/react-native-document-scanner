@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useState, useEffect } from 'react';
 import PdfThumbnail, { ThumbnailResult } from 'react-native-pdf-thumbnail';
 
@@ -18,15 +19,16 @@ const usePdfThumbnails = <
   useEffect(() => {
     if (Array.isArray(uris)) {
       Promise.all(
-        uris.map((uri) => PdfThumbnail.generate(uri, page, quality))
+        _.compact(uris).map((uri) => PdfThumbnail.generate(uri, page, quality))
       ).then((values) => setResults(values));
 
       return;
     }
 
-    PdfThumbnail.generate(uris, page, quality).then((value) =>
-      setResults([value])
-    );
+    if (!_.isEmpty(uris))
+      PdfThumbnail.generate(uris, page, quality).then((value) =>
+        setResults([value])
+      );
   }, [uris]);
 
   if (Array.isArray(uris)) return results as U;

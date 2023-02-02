@@ -2061,11 +2061,11 @@ index 0000000..c27fe19
 +int xml rn_dev_preferences 0x0
 diff --git a/node_modules/react-native-perspective-image-cropper/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-perspective-image-cropper/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 new file mode 100644
-index 0000000..bb9edb6
+index 0000000..ac2cd3c
 --- /dev/null
 +++ b/node_modules/react-native-perspective-image-cropper/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 @@ -0,0 +1 @@
-+#Wed Feb 01 14:50:00 ICT 2023
++#Wed Feb 01 23:03:31 ICT 2023
 diff --git a/node_modules/react-native-perspective-image-cropper/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-perspective-image-cropper/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
 new file mode 100644
 index 0000000..02e11e3
@@ -4134,11 +4134,11 @@ index 0000000..d1d557c
 +int styleable CameraBridgeViewBase_show_fps 1
 diff --git a/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 new file mode 100644
-index 0000000..bb9edb6
+index 0000000..ac2cd3c
 --- /dev/null
 +++ b/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 @@ -0,0 +1 @@
-+#Wed Feb 01 14:50:00 ICT 2023
++#Wed Feb 01 23:03:31 ICT 2023
 diff --git a/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml b/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml
 new file mode 100644
 index 0000000..66d779b
@@ -4886,7 +4886,7 @@ new file mode 100644
 index 0000000..971ec05
 Binary files /dev/null and b/node_modules/react-native-perspective-image-cropper/android/openCVLibrary310/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
 diff --git a/node_modules/react-native-perspective-image-cropper/index.js b/node_modules/react-native-perspective-image-cropper/index.js
-index 5b45bfe..7233d4d 100644
+index 5b45bfe..f4a0e64 100644
 --- a/node_modules/react-native-perspective-image-cropper/index.js
 +++ b/node_modules/react-native-perspective-image-cropper/index.js
 @@ -117,7 +117,9 @@ class CustomCrop extends Component {
@@ -4900,3 +4900,91 @@ index 5b45bfe..7233d4d 100644
              onPanResponderRelease: () => {
                  corner.flattenOffset();
                  this.updateOverlayString();
+@@ -234,13 +236,13 @@ class CustomCrop extends Component {
+                         <View
+                             style={[
+                                 s(this.props).handlerRound,
+-                                { left: 50, top: 50 },
++                                { left: 50, top: 50 + this.props.topOffset || 0 },
+                             ]}
+                         />
+                         <View
+                             style={[
+                                 s(this.props).handlerRoundOuter,
+-                                { left: 30, top: 30 },
++                                { left: 30, top: 30 + this.props.topOffset || 0 },
+                             ]}
+                         />
+                     </Animated.View>
+@@ -261,13 +263,13 @@ class CustomCrop extends Component {
+                             <View
+                                 style={[
+                                     s(this.props).handlerRound,
+-                                    { left: 51, bottom: 51 },
++                                    { left: 51, bottom: 51 + this.props.bottomOffset || 0 },
+                                 ]}
+                             />
+                             <View
+                                 style={[
+                                     s(this.props).handlerRoundOuter,
+-                                    { left: 30, bottom: 30 },
++                                    { left: 30, bottom: 30 + this.props.bottomOffset || 0 },
+                                 ]}
+                             />
+                         </Animated.View>
+@@ -287,13 +289,13 @@ class CustomCrop extends Component {
+                             <View
+                                 style={[
+                                     s(this.props).handlerRound,
+-                                    { right: 47, top: 50 },
++                                    { right: 47, top: 50 + this.props.topOffset || 0 },
+                                 ]}
+                             />
+                             <View
+                                 style={[
+                                     s(this.props).handlerRoundOuter,
+-                                    { right: 30, top: 30 },
++                                    { right: 30, top: 30 + this.props.topOffset || 0 },
+                                 ]}
+                             />
+                         </Animated.View>
+@@ -314,13 +316,13 @@ class CustomCrop extends Component {
+                         <View
+                             style={[
+                                 s(this.props).handlerRound,
+-                                { right: 47, bottom: 53 },
++                                { right: 47, bottom: 53 + this.props.bottomOffset || 0 },
+                             ]}
+                         />
+                         <View
+                             style={[
+                                 s(this.props).handlerRoundOuter,
+-                                { right: 27, bottom: 33 },
++                                { right: 27, bottom: 33 + this.props.bottomOffset || 0 },
+                             ]}
+                         />
+                     </Animated.View>
+@@ -339,9 +341,9 @@ const s = (props) => ({
+         zIndex: 9999
+     },
+     handlerRound: {
+-        width: 31.2,
++        width: props.handlerRoundSize || 30,
+         position: 'absolute',
+-        height: 29.6,
++        height: props.handlerRoundSize || 30,
+         borderRadius: 100,
+         backgroundColor: props.handlerColor || 'blue',
+         zIndex: 9999,
+@@ -349,9 +351,9 @@ const s = (props) => ({
+         borderColor: props.borderColor || 'blue'
+     },
+     handlerRoundOuter: {
+-        width: 70.2,
++        width: props.handlerRoundOuterSize || 70.2,
+         position: 'absolute',
+-        height: 70.2,
++        height: props.handlerRoundOuterSize || 70.2,
+         borderRadius: 150,
+         backgroundColor: props.handlerOuterColor || 'blue',
+         zIndex: 9998

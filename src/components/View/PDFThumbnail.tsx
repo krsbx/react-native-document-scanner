@@ -1,6 +1,5 @@
-import _ from 'lodash';
 import React, { useState } from 'react';
-import { Button, Image, View, ScrollView } from 'react-native';
+import { Button, Image, ScrollView } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import usePdfThumbnails from '../../hooks/usePdfThumbnails';
 
