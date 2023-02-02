@@ -19,6 +19,9 @@ declare module 'react-native-perspective-image-cropper' {
     handlerRoundSize?: number;
     handlerRoundOuterSize?: number;
 
+    topOffset?: number;
+    bottomOffset?: number;
+
     height: number;
     path?: string;
     rectangleCoordinates?: DetectedRectangle;

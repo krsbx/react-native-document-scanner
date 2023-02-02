@@ -22,7 +22,6 @@ import { overlayStyle } from '../../utils/styles';
 
 const CameraScannerView: React.FC<Props> = ({
   cameraRef,
-  detectedRectangle,
   capture,
   setScanner,
   setDevice,
@@ -108,7 +107,7 @@ const CameraScannerView: React.FC<Props> = ({
       />
       {!scanner.isLoadingCamera && !scanner.isProcessingImage ? (
         <RectangleOverlay
-          detectedRectangle={detectedRectangle}
+          detectedRectangle={scanner.detectedRectangle}
           // previewRatio={previewSize}
           backgroundColor="rgba(255,181,6, 0.2)"
           borderColor="rgb(255,181,6)"
@@ -134,16 +133,10 @@ const CameraScannerView: React.FC<Props> = ({
     </View>
   );
 };
-const mapStateToProps = (state: AppState) => {
-  const selectedImage = getSelectedImageIndex(state);
-  const detectedRectangles = getStoredDetectedRectangles(state);
-
-  return {
-    detectedRectangle: detectedRectangles[selectedImage],
-    scanner: getScanner(state),
-    device: getDevice(state),
-  };
-};
+const mapStateToProps = (state: AppState) => ({
+  scanner: getScanner(state),
+  device: getDevice(state),
+});
 
 const connector = connect(mapStateToProps, {
   setScanner: _setScanner,

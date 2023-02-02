@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Component } from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import CustomCrop, {
+  CustomCropProps,
   CustomCropView,
 } from 'react-native-perspective-image-cropper';
 import { DetectedRectangle } from 'react-native-rectangle-scanner';
@@ -43,12 +44,16 @@ const CropView: React.FC<Props> = ({ scanner }) => {
           height={height}
           width={width}
           overlayStrokeWidth={1}
-          overlayColor="rgba(18,190,210, 1)"
-          overlayStrokeColor="rgba(20,190,210, 1)"
+          overlayColor="rgba(18,190,210, 0.4)"
+          overlayStrokeColor="rgba(20,180,255, 1)"
           handlerColor="rgba(20,150,160, 1)"
           handlerRoundSize={15}
           handlerRoundOuterSize={0.5}
-          ref={cropRef as any}
+          topOffset={10}
+          bottomOffset={10}
+          ref={
+            cropRef as unknown as React.RefObject<Component<CustomCropProps>>
+          }
         />
       ) : (
         <Image
